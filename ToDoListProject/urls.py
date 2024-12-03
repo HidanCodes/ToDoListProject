@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from Tasks.views import getTasks, getDetails, addTask
+from Tasks.views import getTasks, getDetails, addTask, updateTask, deleteTask
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('getall/', getTasks.as_view(), name='getall'),
+    path('getall/', getTasks.as_view(), name='get all'),
     path('get/<int:pk>' , getDetails.as_view(), name='get'),
-    path('newtask/', addTask.as_view(), name='newtask'),
+    path('newtask/', addTask.as_view(), name='new task'),
+    path('edittask/<int:pk>', updateTask.as_view(), name='edit task'),
+    path('deletetask/<int:pk>', deleteTask.as_view(), name='delete task'),
 ]

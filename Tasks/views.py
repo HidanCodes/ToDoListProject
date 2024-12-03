@@ -31,4 +31,20 @@ class addTask(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response("invalid data", status=status.HTTP_400_BAD_REQUEST)
 
+class updateTask(APIView):
+    def put(self, request, pk):
+        try:
+            task = Task.objects.get(pk=pk)
+        except Task.DoesNotExist:
+            return Response("No task found",status=status.HTTP_404_NOT_FOUND)
+        serializer = TaskSerializer(task, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        return Response("invalid data", status=status.HTTP_400_BAD_REQUEST)
 
+class deleteTask(APIView):
+    def delete(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        task.delete()
+        return Response("task deleted!",status=status.HTTP_204_NO_CONTENT)
