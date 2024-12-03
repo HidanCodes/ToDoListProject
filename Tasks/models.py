@@ -13,7 +13,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     start_date = models.DateField(blank=True,null=True)
     end_date = models.DateField(blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,blank=True,null=True)
 
 
     def __str__(self):
