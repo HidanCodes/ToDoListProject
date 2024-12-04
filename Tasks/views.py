@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from Tasks.Serializers import TaskSerializer
-from Tasks.models import Task
+from Tasks.Serializers import TaskSerializer, CategorySerializer
+from Tasks.models import Task, Category
 
 
 # Create your views here.
@@ -48,3 +48,16 @@ class deleteTask(APIView):
         task = Task.objects.get(pk=pk)
         task.delete()
         return Response("task deleted!",status=status.HTTP_204_NO_CONTENT)
+
+class getCategories(APIView):
+    def get(self, request):
+        serializer = CategorySerializer(Category.objects.all(), many=True)
+        return Response(serializer.data)
+
+class addCategory(APIView):
+    def post(self, request):
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response("invalid data", status=status.HTTP_400_BAD_REQUEST)
