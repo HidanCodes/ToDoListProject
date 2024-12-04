@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "Tasks.apps.TasksConfig",
-    'rest_framework'
+    'rest_framework',
+    'colorfield'
 ]
 
 MIDDLEWARE = [

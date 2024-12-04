@@ -1,8 +1,11 @@
 from django.db import models
+from colorfield.fields import ColorField
+
 
 # Create your models here.
 class Category (models.Model):
     name = models.CharField(max_length=100)
+    color = ColorField(default='#7BB7EC')
     def __str__(self):
         return self.name
 
