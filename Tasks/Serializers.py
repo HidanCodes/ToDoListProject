@@ -9,7 +9,10 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TaskSerializer(serializers.ModelSerializer):
-    category = serializers.CharField(read_only=True)
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
+        slug_field='name'
+    )
     class Meta:
         model = Task
-        fields = ['id', 'title', 'category', 'description','is_done','created_at','start_date','end_date']
+        fields = ['id', 'title', 'category', 'description', 'is_done', 'created_at', 'start_date', 'end_date']
